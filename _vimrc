@@ -126,6 +126,8 @@ set cursorline
 set comments+=:--
 set formatoptions+=or
 set go-=T
+set fileencoding=utf-8
+set ff=unix
 
 map é ~
 map ç ^
@@ -187,4 +189,5 @@ function MyDiff()
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
-colorscheme wombat
+"colorscheme wombat
+colorscheme kingtop
