@@ -128,18 +128,34 @@ set formatoptions+=or
 set go-=T
 set fileencoding=utf-8
 set ff=unix
+set noundofile
+let g:bufferline_echo = 0
 
-map é ~
-map ç ^
+" Move the cursor to the first non-blank character of a line
 nmap <C-up> ddkP
+" Move line down
 nmap <C-down> ddjP
 vmap <C-up> dkP
 vmap <C-down> djP
 imap <C-space> <C-p>
+
+" Jump to the matching object, and you visually select all the text in between
+map <F6> v%
+" Toggle case
+map <F7> ^
+" Move line up
+map <F8> ~
+" Remove trailing space
 map  <F9> <ESC>:%s/\s\+$//<CR>
+" Remove temporally comment in selected area
+map <F10> <ESC>:%s/\%V--.*\n//gc<CR>
+" Capitalize word
+map <F11> <ESC>:%s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g<CR>:noh<CR>
+" Toggle NerdTree
+map <F12> :NERDTreeToggle<CR>
 
 :iab jpr Jean-Paul Ricaud
-:iab jprmail jean-paul.ricaud@synchrotron-soleil.fr
+":iab jprmail jean-paul.ricaud@maxiv.lu.se
 :iab frdate <C-R>=strftime("%d %b %Y")<CR>
 :iab endate <C-R>=strftime("%b %d %Y")<CR>
 
@@ -150,11 +166,14 @@ set runtimepath=$VIMRUNTIME,$VIM/vimfiles,$VIM/vimfiles/after
 if has("gui_running")
   if has("win32")
     let $HOME=$VIM
-    set guifont=DejaVu_Sans_Mono:h10:cANSI
+"    set guifont=DejaVu_Sans_Mono:h10:cANSI
+    set encoding=utf-8
+"    set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cDEFAULT
+    set guifont=DejaVuSansMono_NF:h10:cDEFAULT
     "MW
     let &showbreak="•••\ "
     ">> DC
-    set list listchars=tab:»»,trail:
+    set list listchars=tab:»»,trail:¤
   else
     set guifont=DejaVu\ Sans\ Mono\ 10
     "Sb
@@ -189,5 +208,14 @@ function MyDiff()
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
-"colorscheme wombat
+"*** Colorschemes
+"high contrast
+"colorscheme koehler
+
+"Low contrast
 colorscheme kingtop
+"colorscheme wombat
+"colorscheme inkpot2
+
+autocmd! bufreadpost *.lib set syntax=off
+let g:airline_powerline_fonts = 1
